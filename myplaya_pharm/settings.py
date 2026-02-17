@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-oq6zi5y-up2+3%osvid54#(w$k&rhj76hvg(f)h)2l82ui=%)j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['backend-playa.onrender.com']
+# ALLOWED_HOSTS = ['backend-playa.onrender.com']
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://backend-playa.onrender.com",
+]
 
 
 # Application definition
