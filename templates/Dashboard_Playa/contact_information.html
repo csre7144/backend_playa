@@ -27,7 +27,13 @@
     <!--! END: Custom CSS-->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.css" />
-    
+    <style>
+        .cont_inform_img{
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -203,22 +209,19 @@
                     <div class="col-xxl-12">
                         <div class="card stretch stretch-full">
                             <div class="card-header">
-                                <h5 class="card-title">Contact Information Report</h5>
-                                <div class="card-header-action">
+                                <!-- <h5 class="card-title">Contact Information Report</h5> -->
+                                 <div class="cont_inform_img">
+                                    <img src="{% static 'img/coming_soon.avif' %}" alt="img-fluid">
+                                 </div>
+                                <!-- <div class="card-header-action">
                                     <div class="card-header-btn">
-                                        <!-- <div data-bs-toggle="tooltip" title="Delete">
-                                            <a href="javascript:void(0);" class="avatar-text avatar-xs bg-danger" data-bs-toggle="remove"> </a>
-                                        </div> -->
-                                        <!-- <div data-bs-toggle="tooltip" title="Refresh">
-                                            <a href="javascript:void(0);" class="avatar-text avatar-xs bg-warning" data-bs-toggle="refresh"> </a>
-                                        </div> -->
                                         <div data-bs-toggle="tooltip" title="Maximize/Minimize">
                                             <a href="javascript:void(0);" class="avatar-text avatar-xs bg-success" data-bs-toggle="expand"> </a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
-                            <div class="card-body custom-card-action">
+                            <!-- <div class="card-body custom-card-action">
                                 <table id="example" class="table table-striped">
                                     <thead>
                                         <tr>
@@ -336,142 +339,6 @@
                                             <td>$86,000</td>
                                         </tr>
                                         <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior JavaScript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012-03-29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Bruce</td>
-                                            <td>JavaScript Developer</td>
-                                            <td>Singapore</td>
-                                            <td>29</td>
-                                            <td>2011-06-27</td>
-                                            <td>$183,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011-01-25</td>
-                                            <td>$112,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011-07-25</td>
-                                            <td>$170,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009-01-12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior JavaScript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012-03-29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Bruce</td>
-                                            <td>JavaScript Developer</td>
-                                            <td>Singapore</td>
-                                            <td>29</td>
-                                            <td>2011-06-27</td>
-                                            <td>$183,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011-01-25</td>
-                                            <td>$112,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011-07-25</td>
-                                            <td>$170,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009-01-12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior JavaScript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012-03-29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Bruce</td>
-                                            <td>JavaScript Developer</td>
-                                            <td>Singapore</td>
-                                            <td>29</td>
-                                            <td>2011-06-27</td>
-                                            <td>$183,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011-01-25</td>
-                                            <td>$112,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011-07-25</td>
-                                            <td>$170,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009-01-12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior JavaScript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012-03-29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Bruce</td>
-                                            <td>JavaScript Developer</td>
-                                            <td>Singapore</td>
-                                            <td>29</td>
-                                            <td>2011-06-27</td>
-                                            <td>$183,000</td>
-                                        </tr>
-                                        <tr>
                                             <td>Donna Snider</td>
                                             <td>Customer Support</td>
                                             <td>New York</td>
@@ -480,9 +347,8 @@
                                             <td>$112,000</td>
                                         </tr>
                                     </tbody>
-                                    
                                 </table>
-                            </div>
+                            </div> -->
                             
                         </div>
                     </div>
