@@ -343,22 +343,31 @@
                     </p>
                     <!-- <p>Please do not leave private or medical information below.</p> -->
                     <div class="form_pg">
-                        <form>
+                        <form method="POST">
+                            {% csrf_token %}
                             <div class="row g-3">
                                 <div class="col-lg-6 col-md-12">
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="Your Name" style="height: 55px;">
+                                    <label for="fname" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control border-1 bg-light px-4" name="fname" placeholder="Your Full Name" style="height: 55px;">
                                 </div>
                                 <div class="col-lg-6 col-md-12">
-                                    <input type="email" class="form-control border-1 bg-light px-4" placeholder="Your Email" style="height: 55px;">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control border-1 bg-light px-4" name="phone2" placeholder="Your Phone Number" style="height: 55px;">
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control border-1 bg-light px-4" name="email2" placeholder="Your Email" style="height: 55px;">
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <input type="text" class="form-control border-1 bg-light px-4" name="subject2" placeholder="Subject" style="height: 55px;">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="Subject" style="height: 55px;">
-                                </div>
-                                <div class="col-12">
-                                    <textarea class="form-control border-1 bg-light px-4 py-3" rows="5" placeholder="Message"></textarea>
+                                    <label for="message" class="form-label">Message</label>
+                                    <textarea class="form-control border-1 bg-light px-4 py-3" name="message2" rows="5" placeholder="Message"></textarea>
                                 </div>
                                 <div class="col-12 text-center">
-                                    <button class="btn btn-primary" type="submit">Send Message</button>
+                                    <button class="btn btn-primary" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>

@@ -580,6 +580,7 @@
             <img src="{% static 'img/dr/per01.png' %}" alt="" >
             <div class="contactpf">
                 <div class="row align-items-center">
+<<<<<<< HEAD
                 <div class="col-md-12 text-light" style="margin-top: 50px;">
                     <h1 class="mb-3 text-light">Request A Call Back</h1>
                     <p class="mb-4">Have a question or need assistance? Request a call back, and one of our friendly team members will reach out to you soon.</p>
@@ -613,13 +614,72 @@
                             </div>
                         </div>
                     </form>
+=======
+                    <div class="col-md-12 text-light" style="margin-top: 50px;">
+                        <h1 class="mb-3 text-light">Request A Call Back</h1>
+                        <p class="mb-4">Have a question or need assistance? Request a call back, and one of our friendly team members will reach out to you soon.</p>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                        <form method="POST" id="requestCallForm">
+                            {% csrf_token %}
+                            <div class="row g-2">
+                                <div class="col-md-6 col-12">
+                                    <input type="text" class="form-control border-0 bg-light px-4" name="fullname" placeholder="Your Name" style="height: 55px;">
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <input type="email" class="form-control border-0 bg-light px-4" name="email" placeholder="Your Email" style="height: 55px;">
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <input type="tel" class="form-control border-0 bg-light px-4" name="phone_number" placeholder="Your Phone Number" style="height: 55px;">
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <input type="text" class="form-control border-0 bg-light px-4" name="subject" placeholder="Subject" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control border-0 bg-light px-4 py-3" rows="1" name="message" placeholder="Message"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+>>>>>>> a72f5a4 (some changed those)
                 </div>
-            </div>
             </div>
         </div>
     </div>
     <!-- END contact Info -->
 
+
+    <!-- NEW MODAL POP UP -->
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">Success</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h5>Your request has been submitted successfully!</h5>
+                <p>Our team will contact you soon.</p>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button> -->
+                <button type="button" class="btn btn-success" id="modalOkBtn">OK</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- END -->
 
     <!-- Contact Start -->
     <div class="container-fluid py-5">
@@ -746,7 +806,44 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
-    
+    <script>
+    document.getElementById("requestCallForm").addEventListener("submit", function(e){
+        e.preventDefault();
+
+        let formData = new FormData(this);
+
+        fetch("", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status === "success"){
+
+                document.getElementById("requestCallForm").reset();
+
+                var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+                myModal.show();
+
+                // When OK button clicked → reload page
+                document.getElementById("modalOkBtn").addEventListener("click", function(){
+                    window.location.href = window.location.pathname;
+                });
+
+            }else{
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => {
+            alert("Something went wrong!");
+        });
+    });
+    </script>
+
+
 
 </body>
 

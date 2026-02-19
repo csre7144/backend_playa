@@ -1,28 +1,50 @@
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
-from .models import RequestCall
+from .models import RequestCall, Contact
 from .forms import RequestCallForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+<<<<<<< HEAD
+=======
+from django.http import JsonResponse
+>>>>>>> a72f5a4 (some changed those)
 
 
 
 # Create your views here.
+<<<<<<< HEAD
 def home(request):
 
     if request.method == "POST":
         try:     
+=======
+from django.http import JsonResponse
+from django.utils.html import strip_tags
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
+
+def home(request):
+
+    if request.method == "POST":
+        try:
+>>>>>>> a72f5a4 (some changed those)
             fullname = request.POST.get("fullname")
             email = request.POST.get("email")
             phone_number = request.POST.get("phone_number")
             subject = request.POST.get("subject")
             msg = request.POST.get("message")
+<<<<<<< HEAD
             # Save to database
             data = RequestCall.objects.create(
+=======
+
+            # Save to database
+            RequestCall.objects.create(
+>>>>>>> a72f5a4 (some changed those)
                 fullname=fullname,
                 email=email,
                 phone_number=phone_number,
@@ -34,6 +56,7 @@ def home(request):
             html_content = f"""
             <!DOCTYPE html>
             <html>
+<<<<<<< HEAD
             <body style="font-family: Arial; font-size:16px; background:#f4f4f4; padding:20px;">
                 <div style="background:#ffffff; padding:20px; border-radius:8px;">
                     
@@ -56,6 +79,17 @@ def home(request):
                     </div>
 
                 </div>
+=======
+            <body style="font-family: Arial; font-size:16px;">
+                <h2>New Request Call</h2>
+                <table border="1" cellpadding="8" cellspacing="0">
+                    <tr><th align="left">Full Name</th><td>{fullname}</td></tr>
+                    <tr><th align="left">Email</th><td>{email}</td></tr>
+                    <tr><th align="left">Phone</th><td>{phone_number}</td></tr>
+                    <tr><th align="left">Subject</th><td>{subject}</td></tr>
+                    <tr><th align="left">Message</th><td>{msg}</td></tr>
+                </table>
+>>>>>>> a72f5a4 (some changed those)
             </body>
             </html>
             """
@@ -72,6 +106,7 @@ def home(request):
             email_message.attach_alternative(html_content, "text/html")
             email_message.send()
 
+<<<<<<< HEAD
             # Store data in session (for redirect)
             request.session['submitted_data'] = {
                 'fullname': fullname,
@@ -96,6 +131,21 @@ def home(request):
     return render(request, 'Fontend_Playa/index.html', {
         'submitted_data': submitted_data
     })
+=======
+            return JsonResponse({
+                "status": "success",
+                "message": "Form submitted successfully"
+            })
+
+        except Exception as e:
+            return JsonResponse({
+                "status": "error",
+                "message": str(e)
+            })
+
+    return render(request, 'Fontend_Playa/index.html')
+>>>>>>> a72f5a4 (some changed those)
+
 
 def about(request):
     return render(request, 'Fontend_Playa/about.html')
@@ -110,6 +160,22 @@ def transfer(request):
     return render(request, 'Fontend_Playa/transfer.html')
 
 def contact(request):
+    if request.method == "POST":
+        fname = request.POST.get('fname')
+        phone = request.POST.get('phone2')
+        email = request.POST.get('email2')
+        subject = request.POST.get('subject2')
+        message = request.POST.get('message2')
+
+        Contact.objects.create(
+            full_name=fname,
+            phone=phone,
+            email=email,
+            subject=subject,
+            message=message
+        )
+
+        return redirect('contact')
     return render(request, 'Fontend_Playa/contact2.html')
 
 def methylene(request):
