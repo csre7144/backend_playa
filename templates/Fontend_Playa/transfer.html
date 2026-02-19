@@ -251,65 +251,116 @@
                     <p class="text-center" style="font-size: 18px;">Need to transfer for a prescription? Fill out the information below and one of our team members will get it transferred.</p>
                     <!-- <p>Please do not leave private or medical information below.</p> -->
                     <div class="form_pg">
-                        <form>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <form method="POST">
+                            {% csrf_token %}
                             <div class="row g-3">
                                 <div class="col-lg-6 col-md-12">
                                     <!-- <span>First Name</span> -->
                                     <p class="text-dark">FIRST NAME<span style="color: red;">*</span></p>
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="First Name" style="height: 55px;">
+                                    {{ form.first_name }}
+                                    {% if form.first_name.errors %}
+                                        <small class="text-danger">{{ form.first_name.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <p class="text-dark">LAST NAME<span style="color: red;">*</span></p>
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="Last Name" style="height: 55px;">
+                                    {{ form.last_name }}
+                                    {% if form.last_name.errors %}
+                                        <small class="text-danger">{{ form.last_name.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <p class="text-dark">DATE OF BIRTH<span style="color: red;">*</span></p>
-                                    <input type="date" class="form-control border-1 bg-light px-4" placeholder="Date Of Birth" style="height: 55px;">
+                                    {{ form.date_of_birth }}
+                                    {% if form.date_of_birth.errors %}
+                                        <small class="text-danger">{{ form.date_of_birth.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <p class="text-dark">PHONE NUMBER<span style="color: red;">*</span></p>
-                                    <input type="tel" class="form-control border-1 bg-light px-4" placeholder="Phone Number" style="height: 55px;">
+                                    {{ form.phone_number }}
+                                    {% if form.phone_number.errors %}
+                                        <small class="text-danger">{{ form.phone_number.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <p class="text-dark">ADDRESS LINE 1<span style="color: red;">*</span></p>
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="Address Line 1" style="height: 55px;">
+                                    {{ form.address_line_1 }}
+                                    {% if form.address_line_1.errors %}
+                                        <small class="text-danger">{{ form.address_line_1.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <p class="text-dark">ADDRESS LINE 2<span style="color: red;">*</span></p>
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="Address Line 2" style="height: 55px;">
+                                    {{ form.address_line_2 }}
+                                    {% if form.address_line_2.errors %}
+                                        <small class="text-danger">{{ form.address_line_2.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <p class="text-dark">CITY<span style="color: red;">*</span></p>
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="City" style="height: 55px;">
+                                    {{ form.city }}
+                                    {% if form.city.errors %}
+                                        <small class="text-danger">{{ form.city.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <p class="text-dark">STATE<span style="color: red;">*</span></p>
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="State" style="height: 55px;">
+                                    {{ form.state }}
+                                    {% if form.state.errors %}
+                                        <small class="text-danger">{{ form.state.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <p class="text-dark">ZIP CODE<span style="color: red;">*</span></p>
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="Zip Code" style="height: 55px;">
+                                    {{ form.zip_code }}
+                                    {% if form.zip_code.errors %}
+                                        <small class="text-danger">{{ form.zip_code.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 
                                 <div class="col-lg-6 col-md-12">
                                     <p class="text-dark">PHARMACY NAME<span style="color: red;">*</span></p>
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="Pharmacy Name" style="height: 55px;">
+                                    {{ form.pharmacy_name }}
+                                    {% if form.pharmacy_name.errors %}
+                                        <small class="text-danger">{{ form.pharmacy_name.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <p class="text-dark">PHARMACY PHONE NUMBER<span style="color: red;">*</span></p>
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="Pharmacy Phone Number" style="height: 55px;">
+                                    {{ form.pharmacy_phone_number }}
+                                    {% if form.pharmacy_phone_number.errors %}
+                                        <small class="text-danger">{{ form.pharmacy_phone_number.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <p class="text-dark">RX NUMBER?<span style="color: red;">*</span></p>
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="Rx Number" style="height: 55px;">
+                                    {{ form.rx_number }}
+                                    {% if form.rx_number.errors %}
+                                        <small class="text-danger">{{ form.rx_number.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <p class="text-dark">WHAT ARE THE FIRST THREE LETTERS OF THE MEDICINE?<span style="color: red;">*</span></p>
-                                    <input type="text" class="form-control border-1 bg-light px-4" placeholder="What are the first letters if the medicine?" style="height: 55px;">
+                                    {{ form.medicine_first_letters }}
+                                    {% if form.medicine_first_letters.errors %}
+                                        <small class="text-danger">{{ form.medicine_first_letters.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <p class="text-dark">WHEN DO YOU NEED THE MEDICINE? <span style="color: red;">*</span></p>
-                                    <input type="date" class="form-control border-1 bg-light px-4" placeholder="When do you need the medicine" style="height: 55px;">
+                                    {{ form.medicine_needed_date }}
+                                    {% if form.medicine_needed_date.errors %}
+                                        <small class="text-danger">{{ form.medicine_needed_date.errors }}</small>
+                                    {% endif %}
                                 </div>
                                 <div>
                                     <p>I understand that Protected Health Information (PHI) or sensitive information should not be included in this message. <span style="color: red;">*</span></p>

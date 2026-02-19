@@ -13,6 +13,7 @@ from email.mime.image import MIMEImage
 from django.core.mail import EmailMultiAlternatives
 import os
 from django.contrib.staticfiles import finders
+from .forms import TransferRXForm
 
 
 # Create your views here.
@@ -115,7 +116,26 @@ def provider(requset):
     return render(requset, 'Fontend_Playa/provider.html')
 
 def transfer(request):
-    return render(request, 'Fontend_Playa/transfer.html')
+    if request.method == "POST":
+        form = TransferRXForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                "✅ Your request has been submitted successfully!"
+            )
+            return redirect("transfer")
+
+        messages.error(
+            request,
+            "❌ Please correct the errors below."
+        )
+
+    else:
+        form = TransferRXForm()
+
+    return render(request, 'Fontend_Playa/transfer.html', {'form': form})
 
 def contact(request):
     if request.method == "POST":
