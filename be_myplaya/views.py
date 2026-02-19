@@ -8,20 +8,11 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-<<<<<<< HEAD
-=======
 from django.http import JsonResponse
->>>>>>> a72f5a4 (some changed those)
 
 
 
 # Create your views here.
-<<<<<<< HEAD
-def home(request):
-
-    if request.method == "POST":
-        try:     
-=======
 from django.http import JsonResponse
 from django.utils.html import strip_tags
 from django.core.mail import EmailMultiAlternatives
@@ -31,20 +22,14 @@ def home(request):
 
     if request.method == "POST":
         try:
->>>>>>> a72f5a4 (some changed those)
             fullname = request.POST.get("fullname")
             email = request.POST.get("email")
             phone_number = request.POST.get("phone_number")
             subject = request.POST.get("subject")
             msg = request.POST.get("message")
-<<<<<<< HEAD
-            # Save to database
-            data = RequestCall.objects.create(
-=======
 
             # Save to database
             RequestCall.objects.create(
->>>>>>> a72f5a4 (some changed those)
                 fullname=fullname,
                 email=email,
                 phone_number=phone_number,
@@ -54,32 +39,7 @@ def home(request):
 
             # ================= HTML EMAIL =================
             html_content = f"""
-            <!DOCTYPE html>
             <html>
-<<<<<<< HEAD
-            <body style="font-family: Arial; font-size:16px; background:#f4f4f4; padding:20px;">
-                <div style="background:#ffffff; padding:20px; border-radius:8px;">
-                    
-                    <div style="text-align:center;">
-                        <h2 style="color:#2c3e50;">New Request Call</h2>
-                    </div>
-
-                    <table width="100%" cellpadding="10" cellspacing="0" border="1" style="border-collapse:collapse;">
-                        <tr><th align="left">Full Name</th><td>{fullname}</td></tr>
-                        <tr><th align="left">Email</th><td>{email}</td></tr>
-                        <tr><th align="left">Phone</th><td>{phone_number}</td></tr>
-                        <tr><th align="left">Subject</th><td>{subject}</td></tr>
-                        <tr><th align="left">Message</th><td>{msg}</td></tr>
-                    </table>
-
-                    <div style="margin-top:20px; font-size:14px; color:#777; text-align:center;">
-                        © 2026 Playa Pharmacy<br>
-                        Email: info@playapharmacy.com<br>
-                        Phone: +1 (310) 823-4500 | Fax: +1 (310) 823-5700
-                    </div>
-
-                </div>
-=======
             <body style="font-family: Arial; font-size:16px;">
                 <h2>New Request Call</h2>
                 <table border="1" cellpadding="8" cellspacing="0">
@@ -89,7 +49,6 @@ def home(request):
                     <tr><th align="left">Subject</th><td>{subject}</td></tr>
                     <tr><th align="left">Message</th><td>{msg}</td></tr>
                 </table>
->>>>>>> a72f5a4 (some changed those)
             </body>
             </html>
             """
@@ -106,32 +65,6 @@ def home(request):
             email_message.attach_alternative(html_content, "text/html")
             email_message.send()
 
-<<<<<<< HEAD
-            # Store data in session (for redirect)
-            request.session['submitted_data'] = {
-                'fullname': fullname,
-                'email': email,
-                'phone_number': phone_number,
-                'subject': subject,
-                'message': msg
-            }
-
-            messages.success(request, "Your application has been submitted successfully!")
-            
-
-            return redirect('home')
-
-        except Exception as e:
-            messages.error(request, f"Error: {e}")
-            return redirect('home')
-
-    # GET request
-    submitted_data = request.session.pop('submitted_data', None)
-
-    return render(request, 'Fontend_Playa/index.html', {
-        'submitted_data': submitted_data
-    })
-=======
             return JsonResponse({
                 "status": "success",
                 "message": "Form submitted successfully"
@@ -144,7 +77,6 @@ def home(request):
             })
 
     return render(request, 'Fontend_Playa/index.html')
->>>>>>> a72f5a4 (some changed those)
 
 
 def about(request):
