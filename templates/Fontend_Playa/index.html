@@ -580,41 +580,6 @@
             <img src="{% static 'img/dr/per01.png' %}" alt="" >
             <div class="contactpf">
                 <div class="row align-items-center">
-<<<<<<< HEAD
-                <div class="col-md-12 text-light" style="margin-top: 50px;">
-                    <h1 class="mb-3 text-light">Request A Call Back</h1>
-                    <p class="mb-4">Have a question or need assistance? Request a call back, and one of our friendly team members will reach out to you soon.</p>
-                    {% if messages %}
-                        <div class="input-container" style="text-align: center;">
-                            {% for message in messages %}
-                                <h5 style="color: rgb(255, 0, 0);">{{ message }}</h5>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                    <form method="POST" onsubmit="return confirmSubmit();">
-                        {% csrf_token %}
-                        <div class="row g-2">
-                            <div class="col-md-6 col-12">
-                                <input type="text" class="form-control border-0 bg-light px-4" name="fullname" placeholder="Your Name" style="height: 55px;">
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <input type="email" class="form-control border-0 bg-light px-4" name="email" placeholder="Your Email" style="height: 55px;">
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <input type="tel" class="form-control border-0 bg-light px-4" name="phone_number" placeholder="Your Phone Number" style="height: 55px;">
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <input type="text" class="form-control border-0 bg-light px-4" name="subject" placeholder="Subject" style="height: 55px;">
-                            </div>
-                            <div class="col-12">
-                                <textarea class="form-control border-0 bg-light px-4 py-3" rows="1" name="message" placeholder="Message"></textarea>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-=======
                     <div class="col-md-12 text-light" style="margin-top: 50px;">
                         <h1 class="mb-3 text-light">Request A Call Back</h1>
                         <p class="mb-4">Have a question or need assistance? Request a call back, and one of our friendly team members will reach out to you soon.</p>
@@ -651,7 +616,6 @@
                             </div>
                         </form>
                     </div>
->>>>>>> a72f5a4 (some changed those)
                 </div>
             </div>
         </div>
