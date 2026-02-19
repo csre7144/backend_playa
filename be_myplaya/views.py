@@ -9,7 +9,10 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.http import JsonResponse
-
+from email.mime.image import MIMEImage
+from django.core.mail import EmailMultiAlternatives
+import os
+from django.contrib.staticfiles import finders
 
 
 # Create your views here.
@@ -41,18 +44,26 @@ def home(request):
             html_content = f"""
             <html>
             <body style="font-family: Arial; font-size:16px;">
-                <h2>New Request Call</h2>
-                <table border="1" cellpadding="8" cellspacing="0">
+                <div>
+                    <img src="cid:company_logo" width="150" alt="Company Logo"/>
+                </div>
+                <h2 style="text-align:center;">New Request Call</h2>
+                <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: separate; width: 100%; max-width: 600px;">
                     <tr><th align="left">Full Name</th><td>{fullname}</td></tr>
                     <tr><th align="left">Email</th><td>{email}</td></tr>
                     <tr><th align="left">Phone</th><td>{phone_number}</td></tr>
                     <tr><th align="left">Subject</th><td>{subject}</td></tr>
                     <tr><th align="left">Message</th><td>{msg}</td></tr>
                 </table>
+                <div>
+                    <div class="footer_pg_main" style="margin-top: 40px; text-align: center; background-color: #085371; font-size: 18px; padding: 10px 20px; color: #fff;">
+                        <p>Phone: +1 (123) 456-7890 | Fax: +1 (310) 823-5700 | Email: <a href="mailto:info@playapharm.com" style="color: #fff; text-decoration: none;">info@playapharm.com</a></p>
+                        <p>© 2024 Playa Pharm. All rights reserved.</p>
+                </div>
             </body>
             </html>
             """
-
+        
             text_content = strip_tags(html_content)
 
             email_message = EmailMultiAlternatives(
@@ -61,6 +72,27 @@ def home(request):
                 from_email=settings.EMAIL_HOST_USER,
                 to=['chintu81400@gmail.com'],
             )
+            
+            email_message = EmailMultiAlternatives(
+                subject=f"New Request Call: {subject}",
+                body=text_content,
+                from_email=settings.EMAIL_HOST_USER,
+                to=['chintu81400@gmail.com'],
+            )
+
+            email_message.attach_alternative(html_content, "text/html")
+
+            # ===== Attach Logo =====
+            logo_path = finders.find('img/logo/logo.png')
+
+            if logo_path:
+                with open(logo_path, 'rb') as f:
+                    logo = MIMEImage(f.read())
+                    logo.add_header('Content-ID', '<company_logo>')
+                    logo.add_header('Content-Disposition', 'inline', filename='logo.png')
+                    email_message.attach(logo)
+
+            # email_message.send()
 
             email_message.attach_alternative(html_content, "text/html")
             email_message.send()
