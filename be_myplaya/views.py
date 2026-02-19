@@ -44,11 +44,11 @@ def home(request):
             html_content = f"""
             <html>
             <body style="font-family: Arial; font-size:16px;">
-                <div>
-                    <img src="cid:company_logo" width="150" alt="Company Logo"/>
+                <div style="text-align:center;">
+                    <img src="cid:company_logo" width="200" alt="Company Logo"/>
                 </div>
                 <h2 style="text-align:center;">New Request Call</h2>
-                <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: separate; width: 100%; max-width: 600px;">
+                <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: separate; width: 100%;">
                     <tr><th align="left">Full Name</th><td>{fullname}</td></tr>
                     <tr><th align="left">Email</th><td>{email}</td></tr>
                     <tr><th align="left">Phone</th><td>{phone_number}</td></tr>
@@ -73,12 +73,6 @@ def home(request):
                 to=['chintu81400@gmail.com'],
             )
             
-            email_message = EmailMultiAlternatives(
-                subject=f"New Request Call: {subject}",
-                body=text_content,
-                from_email=settings.EMAIL_HOST_USER,
-                to=['chintu81400@gmail.com'],
-            )
 
             email_message.attach_alternative(html_content, "text/html")
 
@@ -132,6 +126,7 @@ def contact(request):
         message = request.POST.get('message2')
 
         if fname and phone and email and subject and message:
+            # Save to DB
             Contact.objects.create(
                 full_name=fname,
                 phone=phone,
@@ -139,11 +134,73 @@ def contact(request):
                 subject=subject,
                 message=message
             )
+
+            # -------- HTML EMAIL --------
+            html_content = f"""
+            <html>
+            <body style="font-family: Arial; font-size:16px;">
+                <div style="text-align:center;">
+                    <img src="cid:company_logo" width="200" alt="Company Logo"/>
+                </div>
+
+                <h2 style="text-align:center;">New Contact Message</h2>
+
+                <table border="1" cellpadding="8" cellspacing="0"
+                       style="width: 100%; margin:auto;">
+                    <tr><th align="left">Full Name</th><td>{fname}</td></tr>
+                    <tr><th align="left">Email</th><td>{email}</td></tr>
+                    <tr><th align="left">Phone</th><td>{phone}</td></tr>
+                    <tr><th align="left">Subject</th><td>{subject}</td></tr>
+                    <tr><th align="left">Message</th><td>{message}</td></tr>
+                </table>
+
+                <div style="margin-top: 40px; text-align: center; background-color: #085371;
+                            font-size: 14px; padding: 15px; color: #fff;">
+                    <p>
+                        Phone: +1 (123) 456-7890 |
+                        Fax: +1 (310) 823-5700 |
+                        Email:
+                        <a href="mailto:info@playapharm.com" style="color:#fff;">
+                            info@playapharm.com
+                        </a>
+                    </p>
+                    <p>© 2024 Playa Pharm. All rights reserved.</p>
+                </div>
+            </body>
+            </html>
+            """
+
+            text_content = strip_tags(html_content)
+
+            email_msg = EmailMultiAlternatives(
+                subject=f"New Contact: {subject}",
+                body=text_content,
+                from_email=settings.EMAIL_HOST_USER,
+                to=['chintu81400@gmail.com'],
+            )
+
+
+            email_msg.attach_alternative(html_content, "text/html")
+
+            # -------- Attach Logo (CID) --------
+            logo_path = finders.find('img/logo/logo.png')
+
+            if logo_path:
+                with open(logo_path, 'rb') as img:
+                    logo = MIMEImage(img.read())
+                    logo.add_header('Content-ID', '<company_logo>')
+                    logo.add_header('Content-Disposition', 'inline', filename='logo.png')
+                    email_msg.attach(logo)
+
+            email_msg.send()
+
             messages.success(request, "Your message has been sent successfully!")
+
         else:
             messages.error(request, "Please fill in all required fields.")
 
         return redirect('contact')
+
     return render(request, 'Fontend_Playa/contact2.html')
 
 def methylene(request):
