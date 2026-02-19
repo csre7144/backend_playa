@@ -99,13 +99,17 @@ def contact(request):
         subject = request.POST.get('subject2')
         message = request.POST.get('message2')
 
-        Contact.objects.create(
-            full_name=fname,
-            phone=phone,
-            email=email,
-            subject=subject,
-            message=message
-        )
+        if fname and phone and email and subject and message:
+            Contact.objects.create(
+                full_name=fname,
+                phone=phone,
+                email=email,
+                subject=subject,
+                message=message
+            )
+            messages.success(request, "Your message has been sent successfully!")
+        else:
+            messages.error(request, "Please fill in all required fields.")
 
         return redirect('contact')
     return render(request, 'Fontend_Playa/contact2.html')
