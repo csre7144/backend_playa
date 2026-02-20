@@ -127,7 +127,7 @@ def transfer(request):
             <html>
             <body style="font-family: Arial; font-size:16px;">
                 <div style="text-align:center;">
-                    <img src="https://backend-playa.onrender.com/img/logo/logo.png" width="200" alt="Playa Pharmacy Logo" />
+                    <img src="cid:company_logo" width="200" alt="Company Logo"/>
                 </div>
 
                 <h2 style="text-align:center;">New Transfer RX Request</h2>
@@ -174,6 +174,15 @@ def transfer(request):
 
             email_message.attach_alternative(html_content, "text/html")
 
+            # ===== Attach Logo =====
+            logo_path = finders.find('img/logo/logo.png')
+            if logo_path:
+                with open(logo_path, 'rb') as f:
+                    logo = MIMEImage(f.read())
+                    logo.add_header('Content-ID', '<company_logo>')
+                    logo.add_header('Content-Disposition', 'inline', filename='logo.png')
+                    email_message.attach(logo)
+
             email_message.send()
 
             messages.success(
@@ -216,8 +225,7 @@ def contact(request):
             <html>
             <body style="font-family: Arial; font-size:16px;">
                 <div style="text-align:center;">
-                    # <img src="cid:company_logo" width="200" alt="Company Logo"/>
-                    <img src="https://backend-playa.onrender.com/img/logo/logo.png" width="200" alt="Playa Pharmacy Logo" />
+                    <img src="cid:company_logo" width="200" alt="Company Logo"/>
                 </div>
 
                 <h2 style="text-align:center;">New Contact Message</h2>
@@ -260,14 +268,14 @@ def contact(request):
             email_msg.attach_alternative(html_content, "text/html")
 
             # -------- Attach Logo (CID) --------
-            # logo_path = finders.find('img/logo/logo.png')
+            logo_path = finders.find('img/logo/logo.png')
 
-            # if logo_path:
-            #     with open(logo_path, 'rb') as img:
-            #         logo = MIMEImage(img.read())
-            #         logo.add_header('Content-ID', '<company_logo>')
-            #         logo.add_header('Content-Disposition', 'inline', filename='logo.png')
-            #         email_msg.attach(logo)
+            if logo_path:
+                with open(logo_path, 'rb') as img:
+                    logo = MIMEImage(img.read())
+                    logo.add_header('Content-ID', '<company_logo>')
+                    logo.add_header('Content-Disposition', 'inline', filename='logo.png')
+                    email_msg.attach(logo)
 
             email_msg.send()
 
