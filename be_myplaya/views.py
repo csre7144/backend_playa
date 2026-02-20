@@ -120,11 +120,67 @@ def transfer(request):
         form = TransferRXForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            transfer_obj = form.save()
+
+            # ================= HTML EMAIL =================
+            html_content = f"""
+            <html>
+            <body style="font-family: Arial; font-size:16px;">
+                <div style="text-align:center;">
+                    <img src="https://backend-playa.onrender.com/img/logo/logo.png" width="200" alt="Playa Pharmacy Logo" />
+                </div>
+
+                <h2 style="text-align:center;">New Transfer RX Request</h2>
+
+                <table border="1" cellpadding="8" cellspacing="0"
+                       style="border-collapse: collapse; width: 100%;">
+                    <tr><th align="left">First Name</th><td>{transfer_obj.first_name}</td></tr>
+                    <tr><th align="left">Last Name</th><td>{transfer_obj.last_name}</td></tr>
+                    <tr><th align="left">Date of Birth</th><td>{transfer_obj.date_of_birth}</td></tr>
+                    <tr><th align="left">Phone</th><td>{transfer_obj.phone_number}</td></tr>
+                    <tr><th align="left">Address 1</th><td>{transfer_obj.address_line_1}</td></tr>
+                    <tr><th align="left">Address 2</th><td>{transfer_obj.address_line_2}</td></tr>
+                    <tr><th align="left">City</th><td>{transfer_obj.city}</td></tr>
+                    <tr><th align="left">State</th><td>{transfer_obj.state}</td></tr>
+                    <tr><th align="left">Zip</th><td>{transfer_obj.zip_code}</td></tr>
+                    <tr><th align="left">Pharmacy Name</th><td>{transfer_obj.pharmacy_name}</td></tr>
+                    <tr><th align="left">Pharmacy Phone</th><td>{transfer_obj.pharmacy_phone_number}</td></tr>
+                    <tr><th align="left">RX Number</th><td>{transfer_obj.rx_number}</td></tr>
+                    <tr><th align="left">Medicine Letters</th><td>{transfer_obj.medicine_first_letters}</td></tr>
+                    <tr><th align="left">Medicine Needed Date</th><td>{transfer_obj.medicine_needed_date}</td></tr>
+                </table>
+
+                <div style="margin-top: 40px; text-align: center;
+                            background-color: #085371;
+                            font-size: 16px;
+                            padding: 15px;
+                            color: #fff;">
+                    <p>Phone: +1 (123) 456-7890 | Email: info@playapharm.com</p>
+                    <p>© 2024 Playa Pharm. All rights reserved.</p>
+                </div>
+
+            </body>
+            </html>
+            """
+
+            text_content = strip_tags(html_content)
+
+            email_message = EmailMultiAlternatives(
+                subject="New Transfer RX Request",
+                body=text_content,
+                from_email=settings.EMAIL_HOST_USER,
+                to=["chintu81400@gmail.com"],
+            )
+
+            email_message.attach_alternative(html_content, "text/html")
+
+            email_message.send()
+
             messages.success(
                 request,
                 "✅ Your request has been submitted successfully!"
             )
+
             return redirect("transfer")
 
         messages.error(

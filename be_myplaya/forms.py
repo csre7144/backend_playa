@@ -116,5 +116,5 @@ class TransferRXForm(forms.ModelForm):
 
         class TransferRXForm(forms.ModelForm):
 
-            phone_number = forms.CharField(validators=[validate_us_phone])
-            pharmacy_phone_number = forms.CharField(validators=[validate_us_phone])
+            phone_number = forms.CharField(validators=["validate_us_phone"])
+            pharmacy_phone_number = forms.CharField(validators=["validate_us_phone"])
