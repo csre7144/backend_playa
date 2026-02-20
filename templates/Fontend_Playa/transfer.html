@@ -289,9 +289,12 @@
                                 <div class="col-lg-6 col-md-12">
                                     <!-- <span>First Name</span> -->
                                     <p class="text-dark">FIRST NAME<span style="color: red;">*</span></p>
-                                    {{ form.first_name }}
                                     {% if form.first_name.errors %}
-                                        <small class="text-danger">{{ form.first_name.errors }}</small>
+                                        {{ form.first_name.as_widget(attrs={
+                                            'class': 'form-control border-1 bg-light px-4 is-invalid'
+                                        }) }}
+                                    {% else %}
+                                        {{ form.first_name }}
                                     {% endif %}
                                 </div>
                                 <div class="col-lg-6 col-md-12">

@@ -96,6 +96,43 @@ class TransferRXForm(forms.ModelForm):
             }),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            css_class = self.fields[field].widget.attrs.get('class', '')
+            self.fields[field].widget.attrs['class'] = css_class + ' form-control'
+
+            if self.errors.get(field):
+                self.fields[field].widget.attrs['class'] += ' is-invalid'
+
+    def clean_first_name(self):
+        first_name = self.cleaned_data.get("first_name", "").strip()
+
+        if not first_name:
+            raise forms.ValidationError("First name is required.")
+
+        # Allow letters, spaces, hyphens, apostrophes
+        if not re.match(r"^[A-Za-z\s'-]+$", first_name):
+            raise forms.ValidationError(
+                "First name can only contain letters, spaces, hyphens, and apostrophes."
+            )
+
+        return first_name
+    
+    def clean_last_name(self):
+        last_name = self.cleaned_data.get("last_name", "").strip()
+
+        if not last_name:
+            raise forms.ValidationError("Last name is required.")
+
+        if not re.match(r"^[A-Za-z\s'-]+$", last_name):
+            raise forms.ValidationError(
+                "Last name can only contain letters, spaces, hyphens, and apostrophes."
+            )
+
+        return last_name
+
     # ✅ Validations (your code – works fine)
     def clean_phone_number(self):
         phone = self.cleaned_data["phone_number"]
@@ -104,8 +141,8 @@ class TransferRXForm(forms.ModelForm):
     def clean_rx_number(self):
         rx = self.cleaned_data.get("rx_number")
 
-        if len(rx) != 3:
-            raise forms.ValidationError("RX number must be exactly 3 characters.")
+        if len(rx) != 7:
+            raise forms.ValidationError("RX number must be exactly 7 characters.")
 
         return rx
 
